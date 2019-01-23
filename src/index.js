@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
-import { render, Window, App, Box, Button, StyledText } from 'proton-native';
+import { render, Window, App, Box } from 'proton-native';
 
-const POMODORO_LEN = 1500,
-  LONG_BREAK_LEN = 600,
-  SHORT_BREAK_LEN = 300;
+import Timer from './components/Timer';
+import ControlButtons from './components/ControlButtons';
+import BreakButtons from './components/BreakButtons';
+
+const POMODORO_LEN = 1500;
 
 class PomodoroTimer extends Component {
   state = {
@@ -72,30 +74,19 @@ class PomodoroTimer extends Component {
           title="Pomodoro Timer"
           size={{ w: 500, h: 300 }}
           menuBar={false}
+          margined
         >
           <Box padded={true}>
-            <StyledText style={{ fontSize: 50 }}>{this.getTime()}</StyledText>
-            <Box>
-              <Button onClick={this.startTimer}>Start</Button>
-              <Button onClick={this.stopTimer}>Pause</Button>
-              <Button onClick={() => this.resetTimer()}>Reset</Button>
-              <Button
-                onClick={() => {
-                  this.resetTimer(SHORT_BREAK_LEN);
-                  this.startTimer();
-                }}
-              >
-                Short Break
-              </Button>
-              <Button
-                onClick={() => {
-                  this.resetTimer(LONG_BREAK_LEN);
-                  this.startTimer();
-                }}
-              >
-                Long Break
-              </Button>
-            </Box>
+            <Timer getTime={this.getTime} />
+            <ControlButtons
+              startTimer={this.startTimer}
+              stopTimer={this.stopTimer}
+              resetTimer={this.resetTimer}
+            />
+            <BreakButtons
+              startTimer={this.startTimer}
+              resetTimer={this.resetTimer}
+            />
           </Box>
         </Window>
       </App>
