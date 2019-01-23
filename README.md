@@ -3,7 +3,18 @@
 A simple [Pomodoro Timer](https://en.wikipedia.org/wiki/Pomodoro_Technique) built in [Proton Native](https://proton-native.js.org) as an experiment with the library.
 
 ## Setup
+
 ```
+cd src
 npm install
 npm run start
+```
+
+## Development
+
+Use [proton-native-reload](https://github.com/Ino-Bagaric/proton-native-reload) for auto reload.
+
+```
+cd src
+proton-native-reload
 ```
