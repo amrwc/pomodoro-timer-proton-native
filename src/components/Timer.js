@@ -4,7 +4,7 @@ import { StyledText } from 'proton-native';
 const Timer = props => {
   return (
     <StyledText style={{ fontSize: 50, color: 'darkred' }}>
-      {props.getTime()}
+      {`${props.minutes}:${props.seconds}`}
     </StyledText>
   );
 };

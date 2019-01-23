@@ -16,11 +16,6 @@ class PomodoroTimer extends Component {
     this.refreshTimer();
   }
 
-  getTime = () => {
-    const { minutes, seconds } = this.state;
-    return `${minutes}:${seconds}`;
-  };
-
   startTimer = () => {
     if (!this.intervalId && this.state.timeInSeconds > 0) {
       this.intervalId = setInterval(() => {
@@ -77,7 +72,7 @@ class PomodoroTimer extends Component {
           margined
         >
           <Box padded={true}>
-            <Timer getTime={this.getTime} />
+            <Timer minutes={this.state.minutes} seconds={this.state.seconds} />
             <ControlButtons
               startTimer={this.startTimer}
               stopTimer={this.stopTimer}
