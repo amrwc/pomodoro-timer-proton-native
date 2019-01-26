@@ -21,7 +21,7 @@ class PomodoroTimer extends Component {
       this.intervalId = setInterval(() => {
         this.updateTime();
         this.refreshTimer();
-      }, 1000);
+      }, 10);
     }
   };
 
@@ -42,7 +42,7 @@ class PomodoroTimer extends Component {
     const { timeInSeconds } = this.state;
 
     if (timeInSeconds > 0) {
-      this.setState({ timeInSeconds: timeInSeconds - 1 });
+      this.setState({ timeInSeconds: timeInSeconds - 0.01 });
     } else {
       this.stopTimer();
     }
@@ -51,11 +51,11 @@ class PomodoroTimer extends Component {
   refreshTimer = () => {
     const { timeInSeconds } = this.state;
 
-    let minutes = Math.floor(timeInSeconds / 60);
+    let minutes = Math.floor(Math.floor(timeInSeconds) / 60);
     // Add 0 if minutes less than 10.
     minutes = minutes <= 9 ? `0${minutes}` : minutes;
 
-    let seconds = timeInSeconds % 60;
+    let seconds = Math.floor(timeInSeconds) % 60;
     // Add 0 if seconds less than 10.
     seconds = seconds <= 9 ? `0${seconds}` : seconds;
 
@@ -63,16 +63,19 @@ class PomodoroTimer extends Component {
   };
 
   render() {
+    const { minutes, seconds } = this.state,
+      windowTitle = `Pomodoro Timer ${minutes}:${seconds}`;
+
     return (
       <App>
         <Window
-          title="Pomodoro Timer"
+          title={windowTitle}
           size={{ w: 500, h: 300 }}
           menuBar={false}
           margined
         >
           <Box padded={true}>
-            <Timer minutes={this.state.minutes} seconds={this.state.seconds} />
+            <Timer minutes={minutes} seconds={seconds} />
             <ControlButtons
               startTimer={this.startTimer}
               stopTimer={this.stopTimer}

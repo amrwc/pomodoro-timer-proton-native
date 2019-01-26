@@ -1,6 +1,17 @@
 {
-  "name": "pomodoro",
-  "version": "0.0.1",
+  "name": "pomodoro-timer",
+  "author": "https://github.com/amrwc",
+  "version": "0.1.1",
+  "licence": "MIT",
+  "homepage": "https://github.com/amrwc/Pomodoro-Timer-Proton-Native",
+  "description": "Simple Pomodoro Timer built in Proton Native",
+  "keywords": [
+    "proton-native",
+    "react",
+    "javascript",
+    "pomodoro",
+    "timer"
+  ],
   "private": true,
   "scripts": {
     "start": "node_modules/.bin/babel-node index.js",
