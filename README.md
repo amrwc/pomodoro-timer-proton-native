@@ -20,3 +20,12 @@ Use [proton-native-reload](https://github.com/Ino-Bagaric/proton-native-reload) 
 cd src
 proton-native-reload
 ```
+
+## Packaging
+
+Follow the [electron-builder docs](https://www.electron.build).
+
+```
+cd src
+npm run dist
+```
