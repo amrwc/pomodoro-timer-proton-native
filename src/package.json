@@ -32,8 +32,12 @@
   },
   "build": {
     "protonNodeVersion": "current",
+    "appId": "com.pomodoro-timer",
+    "productName": "Pomodoro Timer",
+    "copyright": "Copyright © 2019 amrwc",
     "mac": {
-      "identity": null
+      "identity": null,
+      "category": "public.app-category.productivity"
     }
   }
 }
