@@ -1,10 +1,10 @@
 import React from 'react';
 import { StyledText } from 'proton-native';
 
-const Timer = props => {
+const Timer = ({ minutes, seconds } = props) => {
   return (
     <StyledText style={{ fontSize: 50, color: 'darkred' }}>
-      {`${props.minutes}:${props.seconds}`}
+      {`${minutes}:${seconds}`}
     </StyledText>
   );
 };

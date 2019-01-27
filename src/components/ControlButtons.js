@@ -1,12 +1,12 @@
 import React from 'react';
 import { Box, Button } from 'proton-native';
 
-const ControlButtons = props => {
+const ControlButtons = ({ startTimer, stopTimer, resetTimer } = props) => {
   return (
     <Box padded={true} vertical={false}>
-      <Button onClick={props.startTimer}>Start</Button>
-      <Button onClick={props.stopTimer}>Pause</Button>
-      <Button onClick={() => props.resetTimer()}>Reset</Button>
+      <Button onClick={startTimer}>Start</Button>
+      <Button onClick={stopTimer}>Pause</Button>
+      <Button onClick={() => resetTimer()}>Reset</Button>
     </Box>
   );
 };

@@ -5,31 +5,44 @@ import Timer from './components/Timer';
 import ControlButtons from './components/ControlButtons';
 import BreakButtons from './components/BreakButtons';
 
-const POMODORO_LEN = 1500;
+const POMODORO_LEN = 1500; // [s]
 
 class PomodoroTimer extends Component {
   state = { timeInSeconds: POMODORO_LEN };
 
   componentWillMount() {
-    this.refreshTimer();
+    this.updateTimer(POMODORO_LEN);
   }
 
   startTimer = () => {
     const { timeInSeconds } = this.state;
 
     if (!this.intervalId && timeInSeconds > 0) {
-      // All numbers in this scope are miliseconds [ms].
-      this.setState({ startTime: Date.now() });
+      this.setState({ startTime: Date.now() }); // [ms]
 
       // https://stackoverflow.com/a/29972322/10620237
       this.intervalId = setInterval(() => {
-        const elapsedTime = Date.now() - this.state.startTime;
-        const newTime = timeInSeconds - Math.floor(elapsedTime / 1000);
-
-        this.updateTime(newTime);
-        this.refreshTimer();
+        const elapsedTime = Date.now() - this.state.startTime; // [ms]
+        this.updateTimer(timeInSeconds - Math.floor(elapsedTime / 1000)); // [s]
       }, 100);
     }
+  };
+
+  updateTimer = newTime => {
+    // Prevent negative values.
+    if (newTime <= 0) {
+      this.stopTimer();
+      this.setState({ timeInSeconds: 0, minutes: '00', seconds: '00' });
+      return;
+    }
+
+    let minutes = Math.floor(newTime / 60);
+    let seconds = newTime % 60;
+    // Prepend 0 if less than 10.
+    minutes = minutes <= 9 ? `0${minutes}` : minutes;
+    seconds = seconds <= 9 ? `0${seconds}` : seconds;
+
+    this.setState({ timeInSeconds: newTime, minutes, seconds });
   };
 
   stopTimer = () => {
@@ -42,24 +55,7 @@ class PomodoroTimer extends Component {
   resetTimer = (timeInSeconds = POMODORO_LEN) => {
     this.stopTimer();
     this.setState({ timeInSeconds, startTime: undefined });
-    this.refreshTimer();
-  };
-
-  updateTime = newTime => {
-    this.state.timeInSeconds > 0
-      ? this.setState({ timeInSeconds: newTime })
-      : this.stopTimer();
-  };
-
-  refreshTimer = () => {
-    const { timeInSeconds } = this.state;
-    let minutes = Math.floor(timeInSeconds / 60);
-    let seconds = timeInSeconds % 60;
-    // Prepend 0 if less than 10.
-    minutes = minutes <= 9 ? `0${minutes}` : minutes;
-    seconds = seconds <= 9 ? `0${seconds}` : seconds;
-
-    this.setState({ minutes, seconds });
+    this.updateTimer(timeInSeconds);
   };
 
   render() {
@@ -71,8 +67,8 @@ class PomodoroTimer extends Component {
       margined: true
     };
     const btnProps = {
-      startTimer: this.startTimer,
-      resetTimer: this.resetTimer
+      resetTimer: this.resetTimer,
+      startTimer: this.startTimer
     };
 
     return (
